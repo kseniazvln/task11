@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task1/entity/product.dart';
 
-class FavoritesViewModel with ChangeNotifier {
+
+class FavoritesModel extends ChangeNotifier {
   List<Product> _favorites = [];
 
   List<Product> get favorites => _favorites;
@@ -14,9 +15,5 @@ class FavoritesViewModel with ChangeNotifier {
   void removeFromFavorites(Product product) {
     _favorites.remove(product);
     notifyListeners();
-  }
-
-  bool isProductInFavorites(Product product) {
-    return _favorites.contains(product);
   }
 }

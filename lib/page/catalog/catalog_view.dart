@@ -1,44 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:task1/entity/product.dart';
-
-
+import 'package:task1/entity/card.dart';
+import 'package:task1/page/catalog/catalog_viewmodel.dart';
 
 
 class CatalogView extends StatelessWidget {
-  final List<Product> products;
-
-  CatalogView({required this.products});
+  final CatalogViewModel viewModel = CatalogViewModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Каталог товаров'),
+        title: Text('Catalog'),
       ),
       body: ListView.builder(
-        itemCount: products.length,
+        itemCount: (viewModel.products.length / 2).ceil(),
         itemBuilder: (context, index) {
-          return ProductCard(product: products[index]);
+          var startIndex = index * 2;
+          var endIndex = startIndex + 1;
+          // Проверяем, чтобы не выходить за пределы списка продуктов
+          if (endIndex >= viewModel.products.length) {
+            endIndex = viewModel.products.length - 1;
+          }
+
+          return Row(
+            children: [
+              ProductCard(product: viewModel.products[startIndex]),
+              SizedBox(width: 8.0),
+              ProductCard(product: viewModel.products[endIndex]),
+            ],
+          );
         },
       ),
     );
   }
 }
-
-class ProductCard extends StatelessWidget {
-  final Product product;
-
-  ProductCard({required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      child: ListTile(
-        title: Text(product.name),
-        subtitle: Text('Цена: ${product.price}'),
-      ),
-    );
-  }
-}
-

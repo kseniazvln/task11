@@ -45,7 +45,7 @@ class _AppViewState extends State<AppView> {
           onPageChanged: _viewModel.onPageChanged,
           children: [
             Page2(),
-            CatalogView(products: products),
+            CatalogView(),
             Page3(),
             Page4(),
             Page5(),
